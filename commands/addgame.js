@@ -1,6 +1,6 @@
 const Helper = require('../helper.js');
 module.exports = {
-    execute: function (games, msg, message_body, splits) {
+    execute: function (server, msg, message_body, splits) {
         let game_name = message_body
         let number = 0
         if (splits.length > 0) {
@@ -12,12 +12,12 @@ module.exports = {
             }
         }
 
-        if (Helper.find_game(games, game_name) !== null) {
+        if (Helper.find_game(server.games, game_name) !== null) {
             msg.reply('game "' + game_name + '" already exists');
         } else {
             // add the game
             msg.reply('adding game "' + game_name + '"');
-            games.push({
+            server.games.push({
                 name: game_name,
                 users: [],
                 ping_count: number

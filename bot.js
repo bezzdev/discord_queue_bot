@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const Helper = require('./helper.js');
 const fs = require("fs");
 const Help = require('./commands/help.js');
 const Games = require('./commands/games.js');
@@ -8,10 +9,13 @@ const RemoveGame = require('./commands/removegame.js');
 const JoinGame = require('./commands/joingame.js');
 const LeaveGame = require('./commands/leavegame.js');
 const PlayGame = require('./commands/playgame.js');
+const NotifyMe = require('./commands/notifyme.js');
+const DontNotifyMe = require('./commands/dontnotifyme.js');
 
 let token = fs.readFileSync("./token.txt", "utf-8");;
 
-let games = []
+let servers = Helper.get_servers()
+
 let commands = [
     { name: "help", execution: Help.execute },
     { name: "games", execution:  Games.execute },
@@ -20,9 +24,11 @@ let commands = [
     { name: "joingame", execution: JoinGame.execute },
     { name: "leavegame", execution: LeaveGame.execute },
     { name: "playgame", execution: PlayGame.execute },
+    { name: "notifyme", execution: NotifyMe.execute },
+    { name: "dontnotifyme", execution: DontNotifyMe.execute },
 ]
 
-function handle_message(msg) {
+function handle_message(server, msg) {
     for (let c = 0; c < commands.length; c++) {
         let command = commands[c];
         let prepend_symbol = "!"        
@@ -38,13 +44,12 @@ function handle_message(msg) {
             let splits = message_body.split(' ');
 
             // execute the command
-            command.execution(games, msg, message_body, splits);
+            command.execution(server, msg, message_body, splits);
 
             break;
         }
     }
 }
-
 
 client.on('ready', () => {
 console.log(`Logged in as ${client.user.tag}!`);
@@ -52,7 +57,17 @@ console.log(`Logged in as ${client.user.tag}!`);
 
 client.on('message', msg => {
     if (msg.author.bot == false) {
-        handle_message(msg)
+        let server = Helper.find_server(servers, msg)
+        if (server == null) {
+            server = {
+                id: msg.guild.id,
+                games: [],
+                users: []
+            }
+            Helper.add_server(servers, server)
+        }
+        handle_message(server, msg)
+        Helper.save_servers(servers)
     }
 });
 
