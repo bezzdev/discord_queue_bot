@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const fs = require("fs");
 const Help = require('./commands/help.js');
 const Games = require('./commands/games.js');
 const AddGame = require('./commands/addgame.js');
@@ -8,7 +9,7 @@ const JoinGame = require('./commands/joingame.js');
 const LeaveGame = require('./commands/leavegame.js');
 const PlayGame = require('./commands/playgame.js');
 
-let token = "";
+let token = fs.readFileSync("./token.txt", "utf-8");;
 
 let games = []
 let commands = [
