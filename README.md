@@ -4,6 +4,7 @@ A discord bot that allows users to create and join potential game queues. When t
 
 ## Setup ##
 install packages via npm
+
 `npm install`
 
 add your bot's token to the token.txt file
