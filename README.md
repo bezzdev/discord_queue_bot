@@ -7,7 +7,7 @@ install packages via npm
 
 `npm install`
 
-add your bot's token to the token.txt file
+replace content of the token.txt file with your discord bot's token
 
 ## Usage ##
 run with node.js
