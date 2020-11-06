@@ -75,7 +75,7 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
             .setTitle('Available Game Queues')
             .setColor(0x00ffff)
-            .setDescription('If you want to join a game queue, type !joingame "game"');
+            .setDescription('If you want to join a game queue, type '+ '?' +'joingame "game"');
 
             server.games.forEach(function (game) {
             let title = game.name
