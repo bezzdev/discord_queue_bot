@@ -5,6 +5,7 @@ const fs = require("fs");
 const Help = require('./commands/help.js');
 const Games = require('./commands/games.js');
 const AddGame = require('./commands/addgame.js');
+const EditGame = require('./commands/editgame.js');
 const RemoveGame = require('./commands/removegame.js');
 const JoinGame = require('./commands/joingame.js');
 const LeaveGame = require('./commands/leavegame.js');
@@ -20,6 +21,7 @@ let commands = [
     { name: "help", execution: Help.execute },
     { name: "games", execution:  Games.execute },
     { name: "addgame", execution:  AddGame.execute },
+    { name: "editgame", execution:  EditGame.execute },
     { name: "removegame", execution:  RemoveGame.execute },
     { name: "joingame", execution: JoinGame.execute },
     { name: "leavegame", execution: LeaveGame.execute },
