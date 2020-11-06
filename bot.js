@@ -31,7 +31,7 @@ let commands = [
 function handle_message(server, msg) {
     for (let c = 0; c < commands.length; c++) {
         let command = commands[c];
-        let prepend_symbol = "!"        
+        let prepend_symbol = "?"        
 
         // check if its the correct command
         if (msg.content.startsWith(prepend_symbol + command.name) || msg.content == prepend_symbol + command.name) {
